@@ -5,30 +5,32 @@
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Burger
+          সুস্বাদু খাবার
         </h2>
       </div>
 
 
       <div class="filters-content">
         <div class="row grid">
+          @foreach($product_array as $product)
           <div class="col-sm-6 col-lg-12 all">
-            <div class="box">
+            <div class="box text-center">
               <div>
                 <div class="img-box">
-                  <img style="width:300px" src="{{asset('images/p18.jpeg')}}" alt="">
+                  <img style="width:300px" src="{{asset('images/'.$product->image)}}" alt="">
                 </div>
                 <div class="detail-box">
-                  <h5>
-                    Burger
-                  </h5>
+                  <h4 style="margin-bottom: 10px">
+                    {{$product->name}}
+                  </h4> 
                   <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                    {{$product->description}}
                   </p>
+                  <p>{{$product->category}} - {{$product->type}}</p>
                   <div class="options">
-                    <h6>
-                      $20
-                    </h6>
+                    <h8>
+                      ${{$product->price}}
+                    </h8>
                     <a href="">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                         <g>
@@ -87,8 +89,10 @@
                 </div>
               </div>
             </div>
+          
+          
           </div>
-       
+       @endforeach
         </div>
       </div>
 
