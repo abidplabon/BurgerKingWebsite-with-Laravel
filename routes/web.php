@@ -43,3 +43,5 @@ Route::post('/edit_product_quantity',[CartController::class,'edit_product_quanti
 Route::get('/edit_product_quantity',function(){                                                //is someone try to add in cart with post request then throw them to index page
     return redirect('/');
 });
+
+Route::get('/checkout',[CartController::class,'checkout'])->name('checkout');

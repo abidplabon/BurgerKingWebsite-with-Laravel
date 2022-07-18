@@ -136,4 +136,8 @@ function edit_product_quantity(Request $request){
     return view('cart');
 }
 
+function checkout()
+{
+    return view('checkout');
+}
 }
