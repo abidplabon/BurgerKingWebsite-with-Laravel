@@ -40,7 +40,16 @@
                     <h6>
                       ${{$product->price}}
                     </h6>
-                    <a href="">
+                    <form method="POST" action="{{route('add_to_cart')}}">
+                      @csrf
+                      <input type="hidden" name="id" value="{{$product->id}}">
+                      <input type="hidden" name="name" value="{{$product->name}}">
+                      <input type="hidden" name="image" value="{{$product->image}}">
+                      <input type="hidden" name="price" value="{{$product->price}}">
+                      <input type="hidden" name="sale_price" value="{{$product->sale_price}}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" style="background: none; border:none;">
+                      <a>
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                         <g>
                           <g>
@@ -94,6 +103,8 @@
                         </g>
                       </svg>
                     </a>
+</button>
+</form>  
                   </div>
                 </div>
               </div>
