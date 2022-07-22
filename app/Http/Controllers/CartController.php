@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -140,4 +141,58 @@ function checkout()
 {
     return view('checkout');
 }
+
+
+function place_order(Request $request){
+    if($request->session()->has('cart')){
+        $name = $request->input('name');
+        $email= $request->input('email');
+        $phone= $request->input('phone');
+        $city = $request->input('city');
+        $address=$request->input('address');
+
+
+        $cost = $request->session()->get('total');
+        $status="not paid";
+        $date = date('Y-m-d');
+
+        $cart = $request->session()->get('cart');
+
+        $order_id = DB::table('orders')->InsertGetId([
+            'name'=>$name,
+            'email'=>$email,
+            'phone'=>$phone,
+            'city'=>$city,
+            'address'=>$address,
+            'cost'=>$cost,
+            'status'=>$status,
+            'date'=>$date
+        ],'id');
+
+        foreach($cart as $id=>$product){
+            $product = $cart[$id];
+            $product_id = $product['id'];
+            $product_name=$product['name'];
+            $product_price=$product['price'];
+            $product_quantity=$product['quantity'];
+            $product_image = $product['image'];
+
+            DB::table('order_items')->insert([
+                'order_id'=>$order_id,
+                'product_id'=>$product_id,
+                'product_name'=>$product_name,
+                'product_price'=>$product_price,
+                'product_quantity'=>$product_quantity,
+                'product_image'=>$product_image,
+                'order_date'=>$date
+            ]);
+        }
+        $request->session()->put('order_id',$order_id);
+        return view("payment");
+    }else{
+        return redirect('/');
+    }
+}
+
+
 }

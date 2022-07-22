@@ -11,7 +11,7 @@
         </div>
 
         <div class="mx-auto container">
-            <form id="checkout-form">
+            <form id="checkout-form" method="POST" action="{{route('place_order')}}">
                 @csrf
                 <div class="form-group checkout-small-element">
                     <label for="">Name</label>
